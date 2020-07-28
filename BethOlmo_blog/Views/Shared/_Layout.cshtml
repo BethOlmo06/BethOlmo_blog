@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dev Thoughts | Beth Olmo</title>
+    <meta name="description" content="This blog is where I share my thoughts on my coding journey and career, and hopefully encourage others to dare to try.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <!-- Bootstrap CSS-->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome CSS-->
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom icon font-->
+    <link href="~/Content/fontastic.css" rel="stylesheet" />
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <!-- Fancybox-->
+    <link href="~/Content/jquery.fancybox.min.css" rel="stylesheet" />
+    <!-- theme stylesheets-->
+    <link href="~/Content/style.sea.css" rel="stylesheet" />
+    <!-- Custom stylesheet - for your changes-->
+    <link href="~/Content/custom.css" rel="stylesheet" />
+
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/Images/CoffeeFav150.png">
+
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<body>
+    <header class="header">
+        <!-- Main Navbar-->
+        <nav class="navbar navbar-expand-lg">
+            <div class="search-area">
+                <div class="search-area-inner d-flex align-items-center justify-content-center">
+                    <div class="close-btn"><i class="icon-close"></i></div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="search" name="search" id="search" placeholder="What can I help you find?">
+                                    <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <!-- Navbar Brand -->
+                <div class="navbar-header d-flex align-items-center justify-content-between">
+                    <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><img src="~/Images/BethLogoGreen_142x83.png" /></a>
+                    <!-- Toggle Button-->
+                    <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+                </div>
+                <!-- Navbar Menu -->
+                <div id="navbarcollapse" class="collapse navbar-collapse justify-content-between">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="mr-4">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="mr-4">@Html.ActionLink("Archive", "Index", "BlogPosts")</li>
+                        <li class="mr-4">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        <li class="mr-4">@Html.ActionLink("Log In", "Login", "Account")</li>
+                    </ul>
+                    <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+
+                </div>
+                
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+    <!-- Page Footer-->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-9">
+                    <div class="logo">
+                        <h6 class="text-white">Beth Olmo</h6>
+                    </div>
+                    <div class="contact-details">
+                        <p>Cocoa Beach, FL, USA</p>
+                        <p>Beth.Olmo@OlmoWeinman.com</p>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <a href="https://betholmo-portfolio.netlify.app/"><img src="~/Images/PortfolioIconWhite40x40 (5).png" /></a>
+                </div>
+                <div class="col-md-1">
+                    <a href="https://www.linkedin.com/in/betholmo06/"><img src="~/Images/LinkedinWhite40x40.png" /></a>
+                </div>
+                <div class="col-md-1">
+                    <a href="https://github.com/BethOlmo06"><img src="~/Images/GitHubWhite40x40 (1).png" /></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyrights">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <p class="text-center">&copy; 2020 Beth Olmo, M.S.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JavaScript files-->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery.fancybox.min.js"></script>
+    <script src="~/Scripts/front.js"></script>
+
+
+    @RenderSection("scripts", false)
+</body>
+</html>
