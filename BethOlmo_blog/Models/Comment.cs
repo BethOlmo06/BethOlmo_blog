@@ -18,5 +18,6 @@ namespace BethOlmo_blog.Models
         //Navigational Properties
         public virtual BlogPost BlogPost { get; set; }
         public virtual ApplicationUser Author { get; set; }
+        public string CommentBody { get; internal set; }
     }
 }

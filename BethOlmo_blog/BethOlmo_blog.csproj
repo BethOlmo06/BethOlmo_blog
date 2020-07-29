@@ -212,6 +212,10 @@
     <Content Include="Images\CoffeeFav150.png" />
     <Content Include="Images\Contact_560x853.png" />
     <Content Include="Images\Contact_scrnsht.png" />
+    <Content Include="Images\DivBkgrnd1920x1280.png" />
+    <Content Include="Images\DivBkgrnd_B1920x1280%282%29.png" />
+    <Content Include="Images\DivBkgrnd_B1920x1280%281%29.png" />
+    <Content Include="Images\DivBkgrnd_C1920x1280.png" />
     <Content Include="Images\GitHubWhite40x40 %281%29.png" />
     <Content Include="Images\LinkedinWhite40x40.png" />
     <Content Include="Images\placeholdduck.png" />

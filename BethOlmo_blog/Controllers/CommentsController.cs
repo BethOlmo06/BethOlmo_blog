@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BethOlmo_blog.Models;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 
 namespace BethOlmo_blog.Controllers
 {
@@ -49,18 +51,24 @@ namespace BethOlmo_blog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BlogPostId,AuthorId,Body,Created,Updated,UpdateReason")] Comment comment)
+        public ActionResult Create(string commentBody, int blogPostId, string slug)
         {
-            if (ModelState.IsValid)
+            if (commentBody.IsNullOrWhiteSpace())
             {
-                db.Comments.Add(comment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "BlogPosts", new { slug });
             }
+            var comment = new Comment
+            {
+                CommentBody = commentBody,
+                BlogPostId = blogPostId,
+                AuthorId = User.Identity.GetUserId(),
+                Created = DateTime.Now
+            };
 
-            ViewBag.AuthorId = new SelectList(db.ApplicationUsers, "Id", "FirstName", comment.AuthorId);
-            ViewBag.BlogPostId = new SelectList(db.BlogPosts, "Id", "Title", comment.BlogPostId);
-            return View(comment);
+            db.Comments.Add(comment);
+                db.SaveChanges();
+                return RedirectToAction("Details", "BlogPosts", new { slug });
+      
         }
 
         // GET: Comments/Edit/5
