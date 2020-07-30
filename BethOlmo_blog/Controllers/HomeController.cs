@@ -5,7 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace BethOlmo_blog.Controllers
+    
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()

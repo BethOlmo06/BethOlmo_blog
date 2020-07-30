@@ -42,22 +42,32 @@
     </div>
 
     <div class="form-group">
-            @Html.LabelFor(model => model.MediaURL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input name="image"  type="file" class="form-control" id="fileUpload" />
-                @Html.ValidationMessageFor(model => model.MediaURL, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        <div class="checkbox">
-            @Html.EditorFor(model => model.Published)
-            @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
+        @Html.Label("Categories", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.ListBox("CategoryIds")
+            @Html.ValidationMessageFor(model => model.Abstract, "", new { @class = "text-danger" })
         </div>
     </div>
-</div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MediaURL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input name="image" type="file" class="form-control" id="fileUpload" />
+            @Html.ValidationMessageFor(model => model.MediaURL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Published)
+                @Html.ValidationMessageFor(model => model.Published, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

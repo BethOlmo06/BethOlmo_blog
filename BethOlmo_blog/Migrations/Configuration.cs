@@ -63,6 +63,33 @@ namespace BethOlmo_blog.Migrations
                 //Assign that user to the Moderator Role
             }
 
+            #region Seeding Blog Posts
+            for (var loop = 1; loop<=30; loop++)
+            {
+                context.BlogPosts.AddOrUpdate(
+                    b => b.Title,
+                    new BlogPost
+                    {
+                        Title = $"Seeded Title {loop}",
+                        Body = $"Seeded Body {loop}",
+                        Abstract = $"Seeded Abstract {loop}",
+                        Created = DateTime.Now
+                    });
+            }
+            #endregion
+
+
+            #region Loading up categories
+            context.Categories.AddOrUpdate(
+                b => b.Name,
+                    new Category { Name = "C#.Net", Description = "Working with C#" },
+                    new Category { Name = "JavaScript", Description = "Working with JavaScript" },
+                    new Category { Name = "Bootstrap", Description = "Design and layout" },
+                    new Category { Name = "jQuery", Description = "Working with jQuery" },
+                    new Category { Name = "LINQ", Description = "Working with LINQ" },
+                    new Category { Name = "Career and Life", Description = "All about the journey" });
+            #endregion
+
             if (!context.Users.Any(u => u.Email == "jasontwichell@coderfoundry.com"))
             {
 

@@ -7,40 +7,74 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using BethOlmo_blog.Helpers;
 using BethOlmo_blog.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace BethOlmo_blog.Controllers
 {
+    [RequireHttps]
     public class BlogPostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: BlogPosts
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Index(int? page, string searchStr)
         {
-            return View(db.BlogPosts.ToList());
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
+
+            int pageSize = 10; //specifies the number of posts per page
+            int pageNumber = (page ?? 1); //?? null coalescing operator
+
+            var model = blogList.OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);
+            return View(model);
+
+        }
+
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            IQueryable<BlogPost> result = null;
+            if (searchStr != null)
+            {
+                result = db.BlogPosts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) ||
+                    p.Body.Contains(searchStr) ||
+                    p.Comments.Any(c => c.Body.Contains(searchStr) ||
+                    c.Author.FirstName.Contains(searchStr) ||
+                    c.Author.LastName.Contains(searchStr) ||
+                    c.Author.DisplayName.Contains(searchStr) ||
+                    c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.BlogPosts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
         }
 
         // GET: BlogPosts/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details( string Slug)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            BlogPost blogPost = db.BlogPosts.Find(id);
-            if (blogPost == null)
-            {
-                return HttpNotFound();
-            }
+            //if (Slug == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            BlogPost blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
+            //if (blogPost == null)
+            //{
+            //    return HttpNotFound();
+            //}
             return View(blogPost);
         }
 
         // GET: BlogPosts/Create
         public ActionResult Create()
         {
+            ViewBag.CategoryIds = new MultiSelectList(db.Categories.ToList(), "Id", "Name");
             return View();
         }
 
@@ -49,7 +83,7 @@ namespace BethOlmo_blog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Title,Body,Abstract,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
+        public ActionResult Create([Bind(Include = "Title,Body,Abstract,MediaURL,Published")] BlogPost blogPost, List<int> categoryIds, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {

@@ -10,6 +10,7 @@ using BethOlmo_blog.Models;
 
 namespace BethOlmo_blog.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class ManageController : Controller
     {

@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace BethOlmo_blog.Controllers
 {
+    [RequireHttps]
     public class CommentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -57,18 +58,19 @@ namespace BethOlmo_blog.Controllers
             {
                 return RedirectToAction("Details", "BlogPosts", new { slug });
             }
-            var comment = new Comment
-            {
-                CommentBody = commentBody,
-                BlogPostId = blogPostId,
-                AuthorId = User.Identity.GetUserId(),
-                Created = DateTime.Now
-            };
 
-            db.Comments.Add(comment);
+            var comment = new Comment
+                {
+                    CommentBody = commentBody,
+                    BlogPostId = blogPostId,
+                    AuthorId = User.Identity.GetUserId(),
+                    Created = DateTime.Now
+                };
+
+                db.Comments.Add(comment);
                 db.SaveChanges();
                 return RedirectToAction("Details", "BlogPosts", new { slug });
-      
+            
         }
 
         // GET: Comments/Edit/5

@@ -106,3 +106,7 @@ C:\Users\elizabethkolmo\source\repos\BethOlmo_blog\BethOlmo_blog\obj\Debug\BethO
 C:\Users\elizabethkolmo\source\repos\BethOlmo_blog\BethOlmo_blog\obj\Debug\BethOlmo_blog.csproj.CopyComplete
 C:\Users\elizabethkolmo\source\repos\BethOlmo_blog\BethOlmo_blog\obj\Debug\BethOlmo_blog.dll
 C:\Users\elizabethkolmo\source\repos\BethOlmo_blog\BethOlmo_blog\obj\Debug\BethOlmo_blog.pdb
+C:\Users\elizabethkolmo\source\repos\BethOlmo_blog\BethOlmo_blog\bin\PagedList.dll
+C:\Users\elizabethkolmo\source\repos\BethOlmo_blog\BethOlmo_blog\bin\PagedList.Mvc.dll
+C:\Users\elizabethkolmo\source\repos\BethOlmo_blog\BethOlmo_blog\bin\PagedList.xml
+C:\Users\elizabethkolmo\source\repos\BethOlmo_blog\BethOlmo_blog\bin\PagedList.Mvc.xml

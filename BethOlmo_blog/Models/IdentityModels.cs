@@ -47,5 +47,7 @@ namespace BethOlmo_blog.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<BethOlmo_blog.Models.Category> Categories { get; set; }
     }
 }

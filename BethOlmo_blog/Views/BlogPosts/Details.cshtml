@@ -4,88 +4,89 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>BlogPost</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-
-        <dd>
-            @Html.Raw(Model.Body)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Abstract)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Abstract)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Updated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Updated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MediaURL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MediaURL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Published)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Published)
-        </dd>
-
-    </dl>
-</div>
-<div class="container-fluid">
+<div class="container mt-xl-5">
     <div class="row">
+        <div class="col-lg-8">
+            <!--How to get an image displaying here-->
+            <!--Display categories here-->
+            <h2>@Html.DisplayFor(model => model.Title)</h2>
+            <!--Display author and date stamp here-->
+            <br />
+            @Html.Raw(Model.Body)
+
+        </div>
+        <div class="col-lg-4">
+            <div class="widget search">
+                <header>
+                    <h3 class="h6">Search the Blog</h3>
+                </header>
+                <form action="#" class="search-form">
+                    <div class="form-group">
+                        <input type="search" placeholder="What are you looking for?">
+                        <button type="submit" class="submit"><i class="icon-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div class="widget latest-posts">
+                <header>
+                    <h3 class="h6">Latest Posts</h3>
+                </header>
+                <div class="blog-posts">
+
+                </div>
+            </div>
+            <div class="widget categories">
+                <header>
+                    <h3 class="h6">Categories</h3>
+                </header>
+                <div class="item d-flex justify-content-between"><a href="#">Category</a><span>1</span></div>
+                <div class="item d-flex justify-content-between"><a href="#">Category</a><span>2</span></div>
+                <div class="item d-flex justify-content-between"><a href="#">Category</a><span>3</span></div>
+                <div class="item d-flex justify-content-between"><a href="#">Category</a><span>4</span></div>
+                <div class="item d-flex justify-content-between"><a href="#">Category</a><span>5</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-6 col-offset-3 mt-xl-5 mb-3">
+            <h5>Post Comments</h5>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6 col-offset-3">
+            @foreach (var comment in Model.Comments)
+            {
+                <p>@Html.Raw(comment.CommentBody)</p>
+            }
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6 col-offset-3 mt-xl-5 mb-3">
+            <h5>Leave a comment.</h5>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
         <div class="col-6 col-offset-3">
             @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 @Html.Hidden("BlogPostId", Model.Id)
-                @Html.HiddenFor(model => model.Slug)
-                @Html.TextArea("CommentBody", new { rows = 20, cols = 100 })
-                <button type="submit">Submit</button>
+                @Html.Hidden("Slug", Model.Slug)
+                <div class="row">
+                    @Html.TextArea("CommentBody", new { rows = 10, cols = 80 })
+                </div>
+                <div class="row mt-5">
+
+                </div>
+                <div class="row mb-xl-5">
+                    <button class="btn btn-info" type="submit">Submit</button>
+                </div>
             }
         </div>
     </div>
