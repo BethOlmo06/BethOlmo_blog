@@ -41,8 +41,6 @@ namespace BethOlmo_blog.Models
 
         public DbSet<BlogPost>BlogPosts { get; set; }
         public DbSet<Comment>Comments { get; set; }
-        public DbSet<Category>Categories { get; set; }
-        public DbSet<CategoryBlogPost>CategoryBlogPosts { get; set; }
         public IEnumerable ApplicationUsers { get; internal set; }
 
         public static ApplicationDbContext Create()
@@ -50,6 +48,6 @@ namespace BethOlmo_blog.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<BethOlmo_blog.Models.Category> Category { get; set; }
+        public System.Data.Entity.DbSet<BethOlmo_blog.Models.Category> Categories { get; set; }
     }
 }
