@@ -59,15 +59,17 @@ namespace BethOlmo_blog.Controllers
         // GET: BlogPosts/Details/5
         public ActionResult Details( string Slug)
         {
-            //if (Slug == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
+            if (String.IsNullOrWhiteSpace(Slug))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             BlogPost blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == Slug);
-            //if (blogPost == null)
-            //{
-            //    return HttpNotFound();
-            //}
+            
+            if (blogPost == null)
+            {
+                return HttpNotFound();
+            }    
             return View(blogPost);
         }
 
@@ -87,28 +89,42 @@ namespace BethOlmo_blog.Controllers
         {
             if (ModelState.IsValid)
             {
-                blogPost.Created = DateTime.Now;
                 var slug = StringUtilities.URLFriendly(blogPost.Title);
-                if (string.IsNullOrWhiteSpace(slug))
+                if (String.IsNullOrWhiteSpace(slug))
                 {
-                    ModelState.AddModelError("Title", "Invalid Title");
+                    ModelState.AddModelError("Title", "Invalid title");
+                    return View(blogPost);
+                }
+                if (db.BlogPosts.Any(b => b.Slug == slug))
+                {
+                    ModelState.AddModelError("Title", "The title must be unique");
                     return View(blogPost);
                 }
 
-                if (ImageUploadValidator.IsWebFriendlyImage(image))
-                {
-                    var fileName = Path.GetFileName(image.FileName);
-                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                    blogPost.MediaURL = "/Uploads/" + fileName;
-                }
-
+                blogPost.Slug = slug;
+                blogPost.Created = DateTime.Now;
                 db.BlogPosts.Add(blogPost);
                 db.SaveChanges();
+
+                if (categoryIds != null)
+                {
+                    foreach (var categoryId in categoryIds)
+                    {
+                        db.CategoryBlogPosts.Add(new CategoryBlogPost
+                        {
+                            BlogPostId = blogPost.Id,
+                            CategoryId = categoryId
+                        });
+                    }
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
-
             return View(blogPost);
         }
+
+
 
         // GET: BlogPosts/Edit/5
         public ActionResult Edit(int? id)
@@ -130,31 +146,32 @@ namespace BethOlmo_blog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Body,Abstract,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
+        public ActionResult Edit([Bind(Include = "Id,Title,Slug,Body,Abstract,MediaURL,Created, Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
             {
-                blogPost.Created = DateTime.Now;
                 var slug = StringUtilities.URLFriendly(blogPost.Title);
-                if (string.IsNullOrWhiteSpace(slug))
+                if (String.IsNullOrWhiteSpace(slug))
                 {
-                    ModelState.AddModelError("Title", "Invalid Title");
+                    ModelState.AddModelError("Title", "Invalid title");
                     return View(blogPost);
                 }
-
-                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                if (db.BlogPosts.Any(b => b.Slug == slug))
                 {
-                    var fileName = Path.GetFileName(image.FileName);
-                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
-                    blogPost.MediaURL = "/Uploads/" + fileName;
+                    ModelState.AddModelError("Title", "The title must be unique");
+                    return View(blogPost);
                 }
+                blogPost.Slug = slug;
 
-                db.BlogPosts.Add(blogPost);
+                blogPost.Updated = DateTime.Now;
+                db.Entry(blogPost).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(blogPost);
         }
+
+
 
         // GET: BlogPosts/Delete/5
         public ActionResult Delete(int? id)

@@ -8,6 +8,7 @@ namespace BethOlmo_blog.Helpers
 {
     public class StringUtilities
     {
+
         /// <summary>
         /// Produces optional, URL-friendly version of a title, "like-this-one". 
         /// hand-tuned for speed, reflects performance refactoring contributed

@@ -16,6 +16,7 @@ namespace BethOlmo_blog.Controllers
     {
         public ActionResult Index()
         {
+            var allBlogPosts = db.BlogPosts.Where(b => b.Published).OrderByDescending(b => b.Created).ToList();
             return View();
         }
 
