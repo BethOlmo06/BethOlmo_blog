@@ -355,3 +355,5 @@ MigrationBackup/
 #Customized section
 *.config
 StartUp.Auth.cs
+*.config
+*.config
