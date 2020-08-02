@@ -66,6 +66,12 @@ namespace BethOlmo_blog.Controllers
             }
             var blogPost = db.BlogPosts.FirstOrDefault(p => p.Slug == slug);
 
+            var blogCategories = db.CategoryBlogPosts.Where(c => c.BlogPostId == blogPost.Id).ToList();
+            foreach(var category in blogCategories)
+            {
+                blogPost.Categories.Add(db.Categories.Find(category.CategoryId));
+            }
+
             if (blogPost == null)
             {
                 return HttpNotFound();
@@ -85,7 +91,7 @@ namespace BethOlmo_blog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Slug,Abstract,Body,MediaURL,Published")] BlogPost blogPost)
+        public ActionResult Create([Bind(Include = "Id,Title,Slug,Abstract,Body,MediaURL,Published")] BlogPost blogPost, List<int>categoryIds)
         {
             if (ModelState.IsValid)
             {
@@ -106,12 +112,26 @@ namespace BethOlmo_blog.Controllers
                 }
 
 
-
+                
 
                 blogPost.Slug = slug;
                 blogPost.Created = DateTime.Now;
                 db.BlogPosts.Add(blogPost);
                 db.SaveChanges();
+
+                if (categoryIds != null)
+                {
+                    foreach (var categoryId in categoryIds)
+                    {
+                        db.CategoryBlogPosts.Add(new CategoryBlogPost
+                        {
+                            BlogPostId = blogPost.Id,
+                            CategoryId = categoryId
+                        });
+                    }
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
             return View(blogPost);
@@ -198,5 +218,14 @@ namespace BethOlmo_blog.Controllers
             }
             base.Dispose(disposing);
         }
+    }
+
+    internal class BlogViewModel
+    {
+        public BlogViewModel()
+        {
+        }
+
+        public BlogPost FeaturedPost { get; internal set; }
     }
 }

@@ -13,6 +13,13 @@
             <!--Display author and date stamp here-->
             <br />
             @Html.Raw(Model.Body)
+            <br />
+            @foreach(var category in Model.Categories)
+            {
+                <div class="row">
+                    <div class="col">Category: @category.Name</div>
+                </div>
+            }
 
         </div>
         <div class="col-lg-4">

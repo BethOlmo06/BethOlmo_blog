@@ -41,6 +41,8 @@ namespace BethOlmo_blog.Models
 
         public DbSet<BlogPost>BlogPosts { get; set; }
         public DbSet<Comment>Comments { get; set; }
+       
+        public DbSet<CategoryBlogPost>CategoryBlogPosts { get; set; }
         public IEnumerable ApplicationUsers { get; internal set; }
 
         public static ApplicationDbContext Create()

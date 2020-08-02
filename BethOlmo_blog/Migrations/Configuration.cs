@@ -63,19 +63,19 @@ namespace BethOlmo_blog.Migrations
                 //Assign that user to the Moderator Role
             }
 
-            #region Seeding Blog Posts
-            for (var loop = 1; loop<=30; loop++)
-            {
-                context.BlogPosts.AddOrUpdate(
-                    b => b.Title,
-                    new BlogPost
-                    {
-                        Title = $"Seeded Title {loop}",
-                        Body = $"Seeded Body {loop}",
-                        Abstract = $"Seeded Abstract {loop}",
-                        Created = DateTime.Now
-                    });
-            }
+            #region Seeding Blog Posts - commented out
+            //for (var loop = 1; loop<=30; loop++)
+            //{
+            //    context.BlogPosts.AddOrUpdate(
+            //        b => b.Title,
+            //        new BlogPost
+            //        {
+            //            Title = $"Seeded Title {loop}",
+            //            Body = $"Seeded Body {loop}",
+            //            Abstract = $"Seeded Abstract {loop}",
+            //            Created = DateTime.Now
+            //        });
+            //}
             #endregion
 
 
