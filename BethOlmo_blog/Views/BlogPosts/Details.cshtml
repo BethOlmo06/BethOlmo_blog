@@ -1,5 +1,5 @@
 ﻿@model BethOlmo_blog.Models.BlogPost
-
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Details";
 }
@@ -12,9 +12,14 @@
             <h2>@Html.DisplayFor(model => model.Title)</h2>
             <!--Display author and date stamp here-->
             <br />
+            @if (Model.MediaURL != null)
+            {
+                <img class="img-fluid" src="@Model.MediaURL" alt="" />
+            }
+            <br />
             @Html.Raw(Model.Body)
             <br />
-            @foreach(var category in Model.Categories)
+            @foreach (var category in Model.Categories)
             {
                 <div class="row">
                     <div class="col">Category: @category.Name</div>
@@ -27,12 +32,13 @@
                 <header>
                     <h3 class="h6">Search the Blog</h3>
                 </header>
-                <form action="#" class="search-form">
+                @using (Html.BeginForm("Index", "BlogPosts", FormMethod.Get, htmlAttributes: new { @class="form"}))
+                {
                     <div class="form-group">
                         <input type="search" placeholder="What are you looking for?">
                         <button type="submit" class="submit"><i class="icon-search"></i></button>
                     </div>
-                </form>
+                }
             </div>
             <div class="widget latest-posts">
                 <header>
@@ -66,7 +72,18 @@
         <div class="col-6 col-offset-3">
             @foreach (var comment in Model.Comments)
             {
-                <p>@Html.Raw(comment.CommentBody)</p>
+                <p id="comment-@comment.Id">@Html.Raw(comment.CommentBody)</p>
+                if (comment.AuthorId != null)
+                {
+                    <p>By: @comment.Author.DisplayName on @comment.Created</p>
+                }
+                <hr />
+                if(User.IsInRole("Admin") || User.IsInRole("Mod") || User.Identity.GetUserId() == comment.AuthorId)
+                {
+                @Html.ActionLink("Edit", "Edit", "Comments", new { id = comment.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Delete", "Delete", "Comments", new { id = comment.Id }, new { @class = "btn btn-danger" })
+                }
+                <hr />
             }
         </div>
     </div>

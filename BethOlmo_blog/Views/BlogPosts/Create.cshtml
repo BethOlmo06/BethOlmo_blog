@@ -45,7 +45,6 @@
         @Html.Label("Categories", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.ListBox("CategoryIds")
-            @Html.ValidationMessageFor(model => model.Abstract, "", new { @class = "text-danger" })
         </div>
     </div>
 

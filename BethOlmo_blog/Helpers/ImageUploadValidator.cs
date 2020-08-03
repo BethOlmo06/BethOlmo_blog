@@ -10,15 +10,6 @@ namespace BethOlmo_blog.Helpers
 {
     public static class ImageUploadValidator
     {
-        //internal static bool IsWebFriendlyImage(HttpPostedFileBase image)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //internal static bool IsWebFriendlyImage(object image)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         public static bool IsWebFriendlyImage(HttpPostedFileBase file)
         {

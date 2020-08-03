@@ -8,7 +8,13 @@ namespace BethOlmo_blog.Models
 {
     public class EmailModel
     {
-        [Required, Display(Name = "Name")]
+        //[Required, Display(Name = "FirstName")]
+        //public string FirstName { get; set; }
+
+        //[Required, Display(Name = "LastName")]
+        //public string LastName { get; set; }
+
+        [Required, Display(Name = "FromName")]
         public string FromName { get; set; }
 
         [Required, Display(Name = "Email"), EmailAddress]

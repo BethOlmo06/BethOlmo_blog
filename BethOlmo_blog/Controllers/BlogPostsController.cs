@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -22,13 +23,14 @@ namespace BethOlmo_blog.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: BlogPosts
-        [Authorize(Roles = "Admin")]
+
+        //[Authorize(Roles = "Admin")]
         public ActionResult Index(int? page, string searchStr)
         {
             ViewBag.Search = searchStr;
             var blogList = IndexSearch(searchStr);
 
-            int pageSize = 10; //specifies the number of posts per page
+            int pageSize = 5; //specifies the number of posts per page
             int pageNumber = (page ?? 1); //?? null coalescing operator
 
             var model = blogList.OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);
@@ -91,7 +93,7 @@ namespace BethOlmo_blog.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Slug,Abstract,Body,MediaURL,Published")] BlogPost blogPost, List<int>categoryIds)
+        public ActionResult Create([Bind(Include = "Id,Title,Slug,Abstract,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image, List<int>categoryIds)
         {
             if (ModelState.IsValid)
             {
@@ -111,8 +113,13 @@ namespace BethOlmo_blog.Controllers
                     return View(blogPost);
                 }
 
+                if (ImageUploadValidator.IsWebFriendlyImage(image))
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    image.SaveAs(Path.Combine(Server.MapPath("~/Uploads/"), fileName));
+                    blogPost.MediaURL = "/Uploads/" + fileName;
+                }
 
-                
 
                 blogPost.Slug = slug;
                 blogPost.Created = DateTime.Now;
@@ -176,6 +183,7 @@ namespace BethOlmo_blog.Controllers
                     blogPost.MediaURL = "/Uploads/" + fileName;
                 }
 
+                blogPost.Slug = slug;
                 blogPost.Updated = DateTime.Now;
                 db.Entry(blogPost).State = EntityState.Modified;
                 db.SaveChanges();
