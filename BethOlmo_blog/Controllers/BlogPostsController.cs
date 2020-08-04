@@ -30,7 +30,7 @@ namespace BethOlmo_blog.Controllers
             ViewBag.Search = searchStr;
             var blogList = IndexSearch(searchStr);
 
-            int pageSize = 5; //specifies the number of posts per page
+            int pageSize = 10; //specifies the number of posts per page
             int pageNumber = (page ?? 1); //?? null coalescing operator
 
             var model = blogList.OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);

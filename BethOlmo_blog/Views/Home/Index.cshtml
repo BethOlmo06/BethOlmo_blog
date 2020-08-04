@@ -1,4 +1,11 @@
-﻿    <!-- Hero Section-->
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList < BethOlmo_blog.Models.IndexViewModel>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
+
+        @*Hero Section-->*@
 <section style="background: url('../../Images/BlogSheroB1920x1438C.png'); background-size: cover; background-position: center top" class="hero">
     <div class="container">
         @*<div class="row mt-xl-5">
@@ -14,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <h1>You <span style="font-style:italic" >Can</span> Get There From Here</h1>
+                <h1>You <span style="font-style:italic">Can</span> Get There From Here</h1>
                 <p class="text-big">Welcome! Thanks for stopping by. I'm a developer, musician, maker, writer... a creative! This blog is where I share my thoughts and insights on my journey to and experiences of being a Full Stack .Net Developer.</p>
             </div>
         </div>
