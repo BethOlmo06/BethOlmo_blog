@@ -42,7 +42,7 @@
 </section>
 
 <!-- Latest Posts -->
-<section class="latest-posts">
+<section class="latest-posts" id="latest-posts">
     <div class="container">
         <header>
             <h2>Latest from the blog</h2>
@@ -64,7 +64,7 @@
                 </div>
             }
         </div>
-        <div class="row justify-content-lg-center">
+        <div class="row">
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
         </div>
