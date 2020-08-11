@@ -42,12 +42,13 @@
                     <div class="close-btn"><i class="icon-close"></i></div>
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-8">
-                            <form action="#">
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form" }))
+                            {
                                 <div class="form-group">
-                                    <input type="search" name="searchStr" id="searchStr" placeholder="What can I help you find?">
+                                    <input type="text" name="searchStr" id="searchStr" placeholder="What can I help you find?">
                                     <button type="submit" class="submit"><i class="icon-search-1"></i></button>
                                 </div>
-                            </form>
+                            }
                         </div>
                     </div>
                 </div>
@@ -63,7 +64,7 @@
                 <div id="navbarcollapse" class="collapse navbar-collapse justify-content-between">
                     <ul class="navbar-nav ml-auto">
                         <li class="mr-4">@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li class="mr-4">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        @*<li class="mr-4">@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     </ul>
                     @Html.Partial("_LoginPartial")
                 <div class="navbar-text"><a href="~/Views/BlogPosts/Index.cshtml" class="search-btn"><i class="icon-search-1"></i></a></div>

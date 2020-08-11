@@ -1788,9 +1788,9 @@ STYLE SWITCHER FOR DEMO
 }
 
 .btn-success {
-  color: #fff;
-  background-color: #28a745;
-  border-color: #28a745;
+    color: #fff;
+    background-color: #046C64;
+    border-color: #046C64;
 }
 
 .btn-success:hover {

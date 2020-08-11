@@ -1,7 +1,7 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
 
-@model IPagedList < BethOlmo_blog.Models.IndexViewModel>
+@model IPagedList < BethOlmo_blog.Models.BlogPost>
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
 
@@ -46,51 +46,33 @@
     <div class="container">
         <header>
             <h2>Latest from the blog</h2>
-            @*<p class="text-big">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>*@
+            
         </header>
-        <div class="row">
-            <div class="post col-md-4">
-                <div class="post-thumbnail"><a href="#"><img src="~/Images/placeholdduck.png" /></a></div>
-                <div class="post-details">
-                    <div class="post-meta d-flex justify-content-between">
-                        <div class="date">20 May | 2016</div>
-                        <div class="category"><a href="#"></a></div>
-                    </div><a href="#">
-                        <h3 class="h4">What's With All The Ducks?</h3>
-                    </a>
-                    @*<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>*@
+        <div class="row justify-content-lg-center">
+            @foreach (var blog in Model)
+            {
+                <div class="post col-md-4">
+                    <div class="post-thumbnail"><a href="@Url.Action("Details", "BlogPosts", new { slug = blog.Slug})"><img src="@blog.MediaURL" /></a></div>
+                    <div class="post-details">
+                        <div class="post-meta d-fex justify-content-between">
+                            <div class="date">@blog.Created.ToString("MMM dd, yyyy")</div>
+                            <div class="category"><a href="#"></a></div>
+                        </div><a href="@Url.Action("Details", "BlogPosts", new { slug = blog.Slug})">
+                            <h3 class="h4">@blog.Title</h3>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="post col-md-4">
-                <div class="post-thumbnail"><a href="#"><img src="~/Images/placeholdfizz.png" /></a></div>
-                <div class="post-details">
-                    <div class="post-meta d-flex justify-content-between">
-                        <div class="date">20 May | 2016</div>
-                        <div class="category"><a href="#"></a></div>
-                    </div><a href="#">
-                        <h3 class="h4">Fizz Buzz!</h3>
-                    </a>
-                    @*<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>*@
-                </div>
-            </div>
-            <div class="post col-md-4">
-                <div class="post-thumbnail"><a href="#"><img src="~/Images/placeholdsun.png" /></a></div>
-                <div class="post-details">
-                    <div class="post-meta d-flex justify-content-between">
-                        <div class="date">20 May | 2016</div>
-                        <div class="category"><a href="#"></a></div>
-                    </div><a href="#">
-                        <h3 class="h4">Sunset Hills</h3>
-                    </a>
-                    @*<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>*@
-                </div>
-            </div>
+            }
+        </div>
+        <div class="row justify-content-lg-center">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
         </div>
     </div>
 </section>
 
 <!-- Newsletter Section-->
-<section class="newsletter no-padding-top">
+@*<section class="newsletter no-padding-top">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -109,4 +91,4 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@

@@ -1,4 +1,5 @@
 ﻿using BethOlmo_blog.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,10 +15,41 @@ namespace BethOlmo_blog.Controllers
     [RequireHttps]
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private ApplicationDbContext db = new ApplicationDbContext();
+        public ActionResult Index(int? page, string searchStr)
         {
-            return View();
+            ViewBag.Search = searchStr;
+            var blogList = IndexSearch(searchStr);
+
+            int pageSize = 3; //specifies the number of posts per page
+            int pageNumber = (page ?? 1); //?? null coalescing operator
+
+            var model = blogList.OrderByDescending(b => b.Created).ToPagedList(pageNumber, pageSize);
+            return View(model);
+
         }
+
+        public IQueryable<BlogPost> IndexSearch(string searchStr)
+        {
+            IQueryable<BlogPost> result = null;
+            if (searchStr != null)
+            {
+                result = db.BlogPosts.AsQueryable();
+                result = result.Where(p => p.Title.Contains(searchStr) ||
+                    p.Body.Contains(searchStr) ||
+                    p.Comments.Any(c => c.Body.Contains(searchStr) ||
+                    c.Author.FirstName.Contains(searchStr) ||
+                    c.Author.LastName.Contains(searchStr) ||
+                    c.Author.DisplayName.Contains(searchStr) ||
+                    c.Author.Email.Contains(searchStr)));
+            }
+            else
+            {
+                result = db.BlogPosts.AsQueryable();
+            }
+            return result.OrderByDescending(p => p.Created);
+        }
+
 
         public ActionResult About()
         {
