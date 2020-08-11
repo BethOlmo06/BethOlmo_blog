@@ -44,7 +44,7 @@
                         <div class="col-md-8">
                             <form action="#">
                                 <div class="form-group">
-                                    <input type="search" name="search" id="search" placeholder="What can I help you find?">
+                                    <input type="search" name="searchStr" id="searchStr" placeholder="What can I help you find?">
                                     <button type="submit" class="submit"><i class="icon-search-1"></i></button>
                                 </div>
                             </form>
@@ -55,7 +55,7 @@
             <div class="container">
                 <!-- Navbar Brand -->
                 <div class="navbar-header d-flex align-items-center justify-content-between">
-                    <!-- Navbar Brand --><a href="index.html" class="navbar-brand"><img src="~/Images/BethLogoGreen_142x83.png" /></a>
+                    <!-- Navbar Brand --><img src="~/Images/BethLogoGreen_142x83.png" />
                     <!-- Toggle Button-->
                     <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
                 </div>
@@ -66,7 +66,8 @@
                         <li class="mr-4">@Html.ActionLink("Contact", "Contact", "Home")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
-                    <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+                <div class="navbar-text"><a href="~/Views/BlogPosts/Index.cshtml" class="search-btn"><i class="icon-search-1"></i></a></div>
+                </div>
 
                 </div>
                 
