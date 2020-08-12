@@ -4,6 +4,7 @@
 @model IPagedList < BethOlmo_blog.Models.BlogPost>
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
+<link href="~/Content/style.sea.css" rel="stylesheet" />
 
         @*Hero Section-->*@
 <section style="background: url('../../Images/BlogSheroB1920x1438C.png'); background-size: cover; background-position: center top" class="hero">
@@ -43,20 +44,24 @@
 
 <!-- Latest Posts -->
 <section class="latest-posts" id="latest-posts">
-    <div class="container">
-        <header>
-            <h2>Latest from the blog</h2>
-            
-        </header>
-        <div class="row justify-content-lg-center">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-3 text-center">
+                <header>
+                    <h2>Latest from the blog</h2>
+                </header>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center mb-xl-5">
             @foreach (var blog in Model)
             {
-                <div class="post col-md-4">
-                    <div class="post-thumbnail"><a href="@Url.Action("Details", "BlogPosts", new { slug = blog.Slug})"><img src="@blog.MediaURL" /></a></div>
+                <div class="post col-3">
+                    <div class="thumbnail"><a href="@Url.Action("Details", "BlogPosts", new { slug = blog.Slug})"><img src="@blog.MediaURL" /></a></div>
                     <div class="post-details">
                         <div class="post-meta d-fex justify-content-between">
                             <div class="date">@blog.Created.ToString("MMM dd, yyyy")</div>
-                            <div class="category"><a href="#"></a></div>
+                            @*<div class="category"><a href="@Url.Action("")"></a></div>*@
                         </div><a href="@Url.Action("Details", "BlogPosts", new { slug = blog.Slug})">
                             <h3 class="h4">@blog.Title</h3>
                         </a>
@@ -64,9 +69,16 @@
                 </div>
             }
         </div>
-        <div class="row">
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+        <br/>
+
+        <div class="row justify-content-center">
+            <div class="col-3 text-center">
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+            </div>
+           
+            
+            
         </div>
     </div>
 </section>

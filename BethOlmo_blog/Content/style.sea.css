@@ -668,6 +668,10 @@ section.hero .continue i {
 *     FEATURED POSTS SECTION
 * ==========================================================
 */
+.thumbnail {
+    width: 300px;
+}
+
 section.featured-posts .row:nth-of-type(odd) .text {
   background: #fafafa;
 }

@@ -64,6 +64,7 @@
                 <div id="navbarcollapse" class="collapse navbar-collapse justify-content-between">
                     <ul class="navbar-nav ml-auto">
                         <li class="mr-4">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="mr-4"><a href="#footer">Contact Info</a></li>
                         @*<li class="mr-4">@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     </ul>
                     @Html.Partial("_LoginPartial")
@@ -80,7 +81,7 @@
     </div>
 
     <!-- Page Footer-->
-    <footer class="main-footer">
+    <footer class="main-footer" id="footer">
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-9">
