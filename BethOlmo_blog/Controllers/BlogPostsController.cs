@@ -25,7 +25,7 @@ namespace BethOlmo_blog.Controllers
 
         // GET: BlogPosts
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(int? page, string searchStr)
         {
             ViewBag.Search = searchStr;
@@ -83,6 +83,7 @@ namespace BethOlmo_blog.Controllers
         }
 
         // GET: BlogPosts/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.CategoryIds = new MultiSelectList(db.Categories.ToList(), "Id", "Name");
@@ -90,10 +91,10 @@ namespace BethOlmo_blog.Controllers
         }
 
         // POST: BlogPosts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,Title,Slug,Abstract,Body,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image, List<int>categoryIds)
         {
             if (ModelState.IsValid)
@@ -146,6 +147,7 @@ namespace BethOlmo_blog.Controllers
         }
 
         // GET: BlogPosts/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -161,10 +163,10 @@ namespace BethOlmo_blog.Controllers
         }
 
         // POST: BlogPosts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Created,Title,Slug,Body,Abstract,MediaURL,Published")] BlogPost blogPost, HttpPostedFileBase image)
         {
             if (ModelState.IsValid)
@@ -194,6 +196,7 @@ namespace BethOlmo_blog.Controllers
         }
 
         // GET: BlogPosts/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -211,6 +214,7 @@ namespace BethOlmo_blog.Controllers
         // POST: BlogPosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             BlogPost blogPost = db.BlogPosts.Find(id);
