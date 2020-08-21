@@ -37,7 +37,7 @@
 <body>
     
 
-    <!--@using (Html.BeginForm())
+    @*@using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -75,16 +75,20 @@
                     <input type="submit" class="btn btn-primary" value="Send" />
                 </div>
             </div>
-        }-->
+        }*@
 
 
     @*NICE CONTACT FORM THAT DOESN'T YET WORK*@
-    <!--<div class="container-contact100">
+    @*<div class="container-contact100">
         <div class="wrap-contact100">
+            
             <form class="contact100-form validate-form">
-                    <span class="contact100-form-title">
-                        Send Me A Message
-                    </span>
+                <span class="contact100-form-title">
+                    Send Me A Message
+                </span>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
                     <label class="label-input100" for="first-name">Tell me your name *</label>
                     <div class="wrap-input100 rs1-wrap-input100">
                         @Html.TextBoxFor(m => m.FromName, new { @class = "form-control", placeholder = "First" })
@@ -114,6 +118,7 @@
                     <div class="container-contact100-form-btn">
                         <input type="submit" class="contact100-form-btn" value="Send Message" />
                     </div>
+                }
                 </form>
 
                 <div class="contact100-more flex-col-c-m" style="background-image:url(/Images/Contact_560x853.png)">
@@ -149,8 +154,10 @@
                         </div>
                     </div>
                 </div>
+            
             </div>
-    </div>-->
+            
+    </div>*@
     
 
 
